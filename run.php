@@ -1,11 +1,7 @@
-# 北京市小客车摇号程序PHP版
+<?php
+require 'random.php';
+require 'yaohao.php';
 
-
-运行命令: `php run.php`
-
-参数说明
-
-```php
 $config = array(
     //要查询的期数
     'cycle' =>  201701,
@@ -14,4 +10,5 @@ $config = array(
     //压缩包路径
     'path'  =>  '/Users/zhjx922/Downloads',
 );
-```
+$yaoHao = new YaoHao($config);
+$yaoHao->start();
