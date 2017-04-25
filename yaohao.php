@@ -55,6 +55,8 @@ class YaoHao {
      */
     private $_zip;
 
+    private $_happyIds = array();
+
     /**
      * init
      * @param YaoHaoConfig $config
@@ -93,6 +95,7 @@ class YaoHao {
         while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
             if($index !== false) {
                 if($pack) {
+                    //放到内存总不够用，只能打包了。。
                     $content .= pack('Q', $data[$index]);
                 } else {
                     $content[] = $data[$index];
@@ -140,6 +143,7 @@ class YaoHao {
             $this->_randomArray[$randomId] = true;
 
             $happyId = $this->getHappyId($randomId);
+            $this->_happyIds[] = $happyId;
             echo "中签编码:{$happyId}\t摇号基数序号:{$randomId}" . PHP_EOL;
 
             if(count($this->_randomArray) >= $this->_quota) {
@@ -147,6 +151,10 @@ class YaoHao {
                 break;
             }
         }
+    }
+
+    public function getHappyIds() {
+        return $this->_happyIds;
     }
 
     /**
